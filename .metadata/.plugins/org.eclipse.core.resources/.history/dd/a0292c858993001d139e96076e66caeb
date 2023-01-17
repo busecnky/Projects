@@ -1,0 +1,19 @@
+package com.busecnky.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Product {
+
+	private long id;
+	
+	private String name;
+	
+	private double price;
+	
+	private int stock;
+	
+	private Customer customer;
+	
+	private Category category;
+}

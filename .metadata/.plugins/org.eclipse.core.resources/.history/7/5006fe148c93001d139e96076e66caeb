@@ -1,0 +1,41 @@
+package com.busecnky.entity;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Customer extends User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	private String password;
+	
+	private String identity;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Product product;
+
+	public Customer(String firstName, String lastName, String email, String password, String identity,
+			Product product) {
+		super(firstName, lastName, email);
+		this.password = password;
+		this.identity = identity;
+		this.product = product;
+	}
+
+	public Customer() {
+		super();
+	}
+
+
+
+	
+	
+	
+}

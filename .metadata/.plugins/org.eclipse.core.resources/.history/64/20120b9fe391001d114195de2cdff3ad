@@ -1,0 +1,93 @@
+package com.busecnky.service;
+
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import com.busecnky.entity.Contacts;
+import com.busecnky.entity.Student;
+import com.busecnky.repository.StudentDao;
+
+public class StudentService {
+
+	private StudentDao studentDao;
+	
+	public StudentService() {
+		studentDao = new StudentDao();
+	}
+	
+	public void save(Student student) {
+		
+		if(student.getEmail().contains("@")) {
+			if(!(student.getEmail().startsWith("@"))){
+				studentDao.save(student);
+			}else {
+				JOptionPane.showMessageDialog(null, "Email can't start with @ sign.");
+			}			
+		}else {
+			JOptionPane.showMessageDialog(null, "Email should have @ sign.");
+		}
+		
+		
+	}
+
+	public List<Student> getAll() {
+		return studentDao.findAll();
+	}
+
+	public Student findByID(long id) {
+		
+		return studentDao.findById(id);
+	}
+
+	public void delete(long id) {
+		studentDao.delete(id);
+		
+	}
+
+
+
+	public Student update(long id, String firstname, String lastname, String email, String gender, Contacts contact) {
+		Student student = findByID(id);
+		student.setName(firstname);
+		student.setSurname(lastname);
+		student.setEmail(email);
+		student.setGender(gender);
+		student.setContacts(contact);
+		
+		if(student.getEmail().contains("@")) {
+			if(!(student.getEmail().startsWith("@"))){
+				studentDao.update(id, student);
+				return student;
+			}else {
+				JOptionPane.showMessageDialog(null, "Email can't start with @ sign.");
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Email should have @ sign.");
+		}
+		
+		return null;
+		
+		
+	}
+
+	public List<Student> getByName(String firstname) {
+		List<Student> list = null; 
+			list = studentDao.getByName(firstname);
+		return list;	
+	}
+
+	public List<Student> getBySurname(String surname) {
+		List<Student> list = null; 
+		list = studentDao.getBySurname(surname);
+		return list;	
+	}
+
+	public List<Student> getByEmail(String email) {
+		List<Student> list = null; 
+		list = studentDao.getByEmail(email);
+		return list;	
+	}
+	
+	
+}

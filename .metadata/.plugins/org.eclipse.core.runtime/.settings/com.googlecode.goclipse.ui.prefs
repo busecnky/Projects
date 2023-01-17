@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+overriddenByCSS=,syntax_highlighting_value,syntax_highlighting_text,syntax_highlighting_builtin_function,syntax_highlighting_keyword,syntax_highlighting_string,syntax_highlighting_character,syntax_highlighting_multiline_string,syntax_highlighting_comment,syntax_highlighting_primitive,syntax_highlighting_operator,syntax_highlighting_syntax_chars,
+syntax_highlighting_builtin_function=208,208,208
+syntax_highlighting_character=220,120,220
+syntax_highlighting_comment=0,224,0
+syntax_highlighting_keyword=0,208,208
+syntax_highlighting_multiline_string=220,120,220
+syntax_highlighting_operator=208,208,208
+syntax_highlighting_primitive=255,255,0
+syntax_highlighting_string=220,120,220
+syntax_highlighting_syntax_chars=208,208,208
+syntax_highlighting_text=208,208,208
+syntax_highlighting_value=255,255,0

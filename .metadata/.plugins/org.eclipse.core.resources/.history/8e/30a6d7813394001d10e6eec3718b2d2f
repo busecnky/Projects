@@ -1,0 +1,30 @@
+package com.busecnky.controller;
+
+import com.busecnky.entity.Category;
+import com.busecnky.entity.Product;
+import com.busecnky.service.CategoryService;
+import com.busecnky.service.ProductService;
+import com.busecnky.utils.BAUtils;
+
+public class ProductController {
+
+	ProductService productService;
+	CategoryService categoryService;
+	
+	public ProductController() {
+		productService = new ProductService();
+		categoryService = new CategoryService();
+	}
+	
+	public void create() {
+		
+		String name = BAUtils.readString("Please enter category name: ");
+		double price = BAUtils.readDouble("Please enter the product price: ");
+		int stock = BAUtils.readInt("Please enter category name: ");
+		Category category = categoryService.find(id);
+		
+		Product product = new Product(name, 0, 0, null);
+		
+	}
+
+}

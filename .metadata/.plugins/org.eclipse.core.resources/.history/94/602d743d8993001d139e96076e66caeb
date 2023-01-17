@@ -1,0 +1,12 @@
+package com.busecnky.entity;
+
+public class ProductEvaluate {
+
+	
+	private long id;
+	
+	private String comment;
+	
+	private double point;
+	
+}

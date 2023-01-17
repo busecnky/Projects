@@ -1,0 +1,50 @@
+package com.busecnky;
+
+import com.busecnky.entity.Category;
+import com.busecnky.utils.HibernateUtils;
+import com.busecnky.utils.ShoppingMenu;
+
+public class ShoppingApp {
+
+	
+	private boolean kontrol; 
+	
+
+	public ShoppingApp(boolean kontrol) {
+		super();
+		this.kontrol = kontrol;
+	}
+	public ShoppingApp() {
+		super();
+	}
+
+	public boolean isKontrol() {
+		return kontrol;
+	}
+
+	public void setKontrol(boolean kontrol) {
+		this.kontrol = kontrol;
+	}
+
+
+
+	public static void main(String[] args) {
+		
+		//HibernateUtils.getSessionFactory().openSession();
+		
+		ShoppingApp app = new ShoppingApp(true);
+		ShoppingMenu menu = new ShoppingMenu();
+		
+		while(app.kontrol) {
+			menu.menu();
+			
+		}
+		
+		//  bc@gmail.com
+	
+		
+	}
+
+	
+	
+}

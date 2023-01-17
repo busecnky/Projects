@@ -1,0 +1,10 @@
+package com.busecnky.controller;
+
+public class CategoryController {
+
+	public void create() {
+		String username = BAUtils.readString("Please enter category name: ");
+		
+	}
+
+}

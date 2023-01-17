@@ -1,0 +1,43 @@
+package com.busecnky.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.busecnky.entity.Customer;
+import com.busecnky.entity.Product;
+import com.busecnky.entity.ProductEvaluate;
+import com.busecnky.service.ProductEvaluateService;
+import com.busecnky.service.ProductService;
+import com.busecnky.utils.BAUtils;
+
+public class ProductEvaluateController {
+	
+	ProductEvaluateService productEvaluateService;
+	ProductService productService;
+	
+	public ProductEvaluateController() {
+		productEvaluateService = new ProductEvaluateService();
+		productService = new ProductService();
+
+	}
+	
+
+	public void comment(Optional<Customer> customer) {
+		
+		List<Product> listProduct = customer.get().getProducts();
+		
+		if(!(listProduct.isEmpty())) {
+			long id = BAUtils.readLong("Please enter product id that you want to comment: ");
+			int point = BAUtils.readInt("Please enter the point ");
+			String comment = BAUtils.readString("Please enter comment for this product: ");
+			
+			ProductEvaluate productEvaluate = new ProductEvaluate(comment, point, productService.find(id), customer);
+			productEvaluateService.create(productEvaluate);
+		}
+		
+		
+	
+		
+	}
+
+}

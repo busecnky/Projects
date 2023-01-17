@@ -1,0 +1,48 @@
+package com.busecnky.entity;
+
+public class Customer extends User {
+
+	private long id;
+	
+	private String password;
+	
+	private String identity;
+
+	public Customer(String firstName, String lastName, String email, String password, String identity) {
+		super(firstName, lastName, email);
+		this.password = password;
+		this.identity = identity;
+	}
+
+	public Customer(String firstName, String lastName, String email) {
+		super(firstName, lastName, email);
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
+	
+	
+	
+}

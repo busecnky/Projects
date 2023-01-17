@@ -1,0 +1,14 @@
+package com.busecnky.controller;
+
+import java.util.Optional;
+
+import com.busecnky.entity.Customer;
+
+public class ProductEvaluateController {
+
+	public void comment(Optional<Customer> customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

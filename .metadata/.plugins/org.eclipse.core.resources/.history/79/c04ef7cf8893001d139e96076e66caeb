@@ -1,0 +1,24 @@
+package com.busecnky.entity;
+
+public class Admin extends User{
+
+	
+	private long id;
+
+	public Admin(long id, String firstName, String lastName, String email) {
+		super(firstName, lastName, email);
+		this.id = id;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,12 @@
+package com.busecnky.entity;
+
+public class Admin extends User{
+
+	
+	private long id;
+
+
+	
+	
+	
+}

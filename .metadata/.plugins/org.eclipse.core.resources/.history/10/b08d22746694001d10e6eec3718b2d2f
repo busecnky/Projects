@@ -1,0 +1,107 @@
+package com.busecnky.controller;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import com.busecnky.entity.Category;
+import com.busecnky.entity.Customer;
+import com.busecnky.entity.Product;
+import com.busecnky.service.CategoryService;
+import com.busecnky.service.ProductService;
+import com.busecnky.utils.BAUtils;
+
+public class ProductController {
+
+	ProductService productService;
+	CategoryService categoryService;
+	
+	public ProductController() {
+		productService = new ProductService();
+		categoryService = new CategoryService();
+	}
+	
+	public void create() {
+		
+		String name = BAUtils.readString("Please enter product name: ");
+		double price = BAUtils.readDouble("Please enter the product price: ");
+		int stock = BAUtils.readInt("Please enter number of stock: ");
+		
+		System.out.println("\n Category List");
+		System.out.println(categoryService.listAll());
+		
+		long id = BAUtils.readLong("Please enter category id: ");
+		Category category = categoryService.find(id);
+		
+		Product product = new Product(name, price, stock, category);
+		
+		productService.create(product);
+		
+	}
+
+	public void buyProduct(Optional<Customer> customer) {
+		System.out.println(productService.listAll());
+		Map<Long, Integer> basket = new HashMap<>();
+		long id;
+		
+		boolean control = true;
+		
+		do {
+			id = BAUtils.readLong("Please enter product id that you want to buy ");
+			int quantity = BAUtils.readInt("Please enter quantity ");
+			
+			
+			if(buyingControl(id, quantity)) {
+				basket.put(id, quantity);
+				if(basket.containsKey(id)) {
+					basket.put(id, basket.get(id) + quantity);
+				}
+			}
+			
+			boolean control2 = true;
+			while (control2) {
+			System.out.println("Do you want to continue shopping?");
+			String answer = BAUtils.readString("Y/N");
+
+				if(answer.equalsIgnoreCase("Y")) {
+					
+					control2 = false;
+					control = true;
+				}else if (answer.equalsIgnoreCase("N")) {
+					control2 = false;
+					control = false;
+				}else {
+					System.out.println("Please enter Y/N");
+					control2 = true;
+				}
+			}
+	
+		} while (control);
+
+		if(!(basket.isEmpty())) {
+			for (Long key : basket.keySet()) {
+				customer.get().setProducts(Arrays.asList(productService.find(id)));
+				System.out.println("customer a eklenmesi lazım");
+				//System.out.println("Key: " + key + " Value: " + basket.get(key));
+			}
+		}
+		
+		
+		
+	}
+	
+	public boolean buyingControl(long id, int quantity) {
+		if(quantity > productService.find(id).getStock()) {
+			return false;
+		}else {
+			
+			productService.find(id).setStock(productService.find(id).getStock() - quantity);
+			System.out.println("buying control");
+			return true;
+		}
+		
+		
+	}
+
+}

@@ -1,0 +1,31 @@
+package com.busecnky.controller;
+
+import java.util.Optional;
+
+import com.busecnky.entity.Customer;
+import com.busecnky.service.CustomerService;
+
+public class CustomerController {
+	
+	CustomerService customerService;
+	
+	public CustomerController() {
+		customerService = new CustomerService();
+	}
+
+	public Optional<Customer> findByUserName(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void listAll() {
+		customerService.listAll();
+		
+	}
+
+	public void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

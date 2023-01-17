@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/studentsystem</property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">Telefon310</property>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+
+		<property name="connection.autocommit">false</property>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+		<property name="hibernate.event.merge.entity_copy_observer">allow</property>
+	</session-factory>
+</hibernate-configuration>

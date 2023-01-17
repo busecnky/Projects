@@ -1,0 +1,172 @@
+package com.busecnky;
+import java.io.*;
+import java.net.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.Border;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.BorderFactory;
+
+public class UDPClient implements Runnable {
+	
+	public final static int SERVERPORT = 5000; 
+	static DatagramSocket udpClientSocket = null;  
+	static InetAddress serverIPAddress;   
+    String name;  
+    
+    
+    public void setName(String nm) {  
+	    this.name = nm;
+	} 
+	
+    public String getName() { 
+	    return name;	
+	} 
+    
+    static {
+    try {       
+        serverIPAddress = InetAddress.getByName("localhost");
+            }catch (IOException er) {
+   					System.out.println(er);
+   		              }   
+    }
+    
+    static {
+    try {
+        udpClientSocket = new DatagramSocket();
+    }catch (IOException er) {
+				System.out.println(er);
+	             } 
+    }
+    
+    
+    String text = "Welcome to UDP Chat.... \nPlease choose Log On from the file menu above and enter \n your screen name.";
+    JFrame frame = new JFrame("              UDP Chat");
+    JPanel panel1 = new JPanel(new BorderLayout()); 
+    JPanel panel2 = new JPanel();  
+    JMenuBar menuBar = new JMenuBar();
+    JTextField textField = new JTextField(30); 
+    JTextArea messageArea = new JTextArea(text,20,25);
+  
+    public JMenu createFileMenu() {  
+		JMenu menu = new JMenu("File");
+		menu.add(createLogOnItem()); 
+		menu.add(createFileExitItem()); 
+		return menu;
+		} 
+	
+	public JMenuItem createLogOnItem() {
+		JMenuItem item = new JMenuItem("Log On");
+		class MenuItemListener implements ActionListener {
+			public void actionPerformed (ActionEvent event) {
+	
+			    String nme = JOptionPane.showInputDialog(null,"Please enter your name:","Log On",JOptionPane.INFORMATION_MESSAGE);
+				setName(nme);
+
+    
+      byte[] sendData = new byte[1024]; 
+
+      String clientRequest = "HAL"+name;
+      
+      sendData = clientRequest.getBytes();
+      
+      DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverIPAddress, SERVERPORT);
+      
+          // send the UDP packet
+      try {
+		  messageArea.append("Packet sent to Server \n"); // Display sending on screen	
+              udpClientSocket.send(sendPacket);   // send the packet
+           } catch (IOException er) {
+					System.out.println(er);
+		              } 
+      
+			
+			} // end actionPerformed
+		} // end MenuItemListener
+		ActionListener listener = new MenuItemListener();
+		item.addActionListener(listener); // add listener to the menu 'item'
+		return item;
+	} // end createLogOnItem
+	
+	public JMenuItem createFileExitItem() {     // to close the program
+	    JMenuItem item = new JMenuItem("Exit");
+	    class MenuItemListener implements ActionListener {
+			public void actionPerformed (ActionEvent event) {
+			    System.exit(0);       // close the program by calling System.exit(0)
+			} // end actionPerformed
+		} // end MenuItemListener
+		ActionListener listener = new MenuItemListener();
+		item.addActionListener(listener);
+	    return item;
+	}	
+  
+	UDPClient() {
+       /**** Layout of GUI *****/
+		frame.setJMenuBar(menuBar);
+        menuBar.add(createFileMenu());
+      
+		textField.setEditable(true);
+		messageArea.setEditable(false);
+		frame.setSize(500,700);
+        
+        panel1.add(messageArea);
+        panel1.add(new JScrollPane(messageArea),"Center");
+        panel2.add(new JLabel("Message:"));
+        panel2.add(textField);   
+        // specify the borders
+        panel1.setBorder(BorderFactory.createLineBorder(Color.lightGray, 15));
+        panel2.setBorder(BorderFactory.createLineBorder(Color.lightGray, 10));  
+        // add panels to frame	   
+		frame.getContentPane().add(panel1, BorderLayout.CENTER);
+		frame.getContentPane().add(panel2,BorderLayout.SOUTH);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+		// Listeners for the textField packet is sent when enter is pressed.
+		 textField.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+			byte[] data = new byte[1024];
+			String info = getName() + ": " + textField.getText(); // specifies format to be sent
+			data = info.getBytes();
+			DatagramPacket output = new DatagramPacket(data, data.length,serverIPAddress,SERVERPORT);
+			try {
+			udpClientSocket.send(output);
+				} catch(IOException er) {
+				 System.out.println(er);
+			 } // end of try
+			data = new byte[1024]; // flush byte array data
+		    textField.setText("");  // reset textfiled to blank
+		}
+	    });    // end of addActionListener
+	
+	} // end of constructor
+	
+	public void run() {   // overriding run() method, listens for incoming messages and adds to messageArea
+	
+	    byte[] info = new byte[1024];
+	    String s = "";
+	    while(true)
+	    {
+			DatagramPacket dp = new DatagramPacket(info, info.length);
+			try {
+				 udpClientSocket.receive(dp);
+		         s = new String (dp.getData());
+			     messageArea.append(s + "\n");   // add to message Area
+				} catch(IOException er) {
+				 System.out.println(er);
+			 } 	 
+		}
+	}
+     
+    
+	
+	public static void main(String [] args) {	
+	
+
+        Thread t = new Thread(new UDPClient());
+		t.start(); 
+
+    }
+	
+} 

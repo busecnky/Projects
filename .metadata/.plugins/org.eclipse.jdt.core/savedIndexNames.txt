@@ -1,0 +1,25 @@
+INDEX VERSION 1.131+/Users/busecankaya/Desktop/buse/eclipse/Projects_1/.metadata/.plugins/org.eclipse.jdt.core
+3055763268.index
+2482850307.index
+72910978.index
+899281264.index
+1322212727.index
+3037165151.index
+1865797976.index
+1223283933.index
+1397196228.index
+1104062425.index
+1155324168.index
+1593356353.index
+3507061495.index
+2091735411.index
+3845643534.index
+1897529254.index
+405271183.index
+2479038004.index
+2883367190.index
+3994399313.index
+2920030540.index
+1067560795.index
+1981836257.index
+2153775569.index

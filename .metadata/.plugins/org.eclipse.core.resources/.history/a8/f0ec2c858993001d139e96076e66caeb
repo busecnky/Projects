@@ -1,0 +1,22 @@
+package com.busecnky.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Customer extends User {
+
+	private long id;
+	
+	private String password;
+	
+	private String identity;
+
+	private Product product;
+	
+	private ProductEvaluate productEvaluate;
+
+
+	
+	
+	
+}

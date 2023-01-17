@@ -1,0 +1,29 @@
+package com.busecnky;
+
+import com.busecnky.entity.Contact;
+import com.busecnky.entity.Student;
+import com.busecnky.repository.ContactsDao;
+import com.busecnky.repository.StudentDao;
+import com.busecnky.util.HibernateUtils;
+
+public class Test {
+
+	public static void main(String[] args) {
+		
+		HibernateUtils.getSessionFactory().openSession();
+
+//		StudentDao studentDao = new StudentDao();
+//		ContactsDao contactsDao = new ContactsDao();
+//	
+//		Contacts contacts = new Contacts("464", null, "dsfs", null);
+//		
+//		contactsDao.save(contacts);
+//		Student student = new Student("ds", "lld", "danull", "nudsfsdll", contacts);
+//		
+//		studentDao.save(student);
+		
+	System.out.println();
+		
+	}
+
+}

@@ -1,0 +1,52 @@
+package com.busecnky.service;
+
+import java.util.Locale;
+
+import javax.swing.JOptionPane;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.busecnky.entity.Contacts;
+import com.busecnky.repository.ContactsDao;
+
+public class ContactsService {
+
+private ContactsDao contactsDao;
+	
+	public ContactsService() {
+		contactsDao = new ContactsDao();
+	}
+	
+	public void save(Contacts con) {
+		
+		if(StringUtils.isNumeric(con.getPhone1())){
+			if(StringUtils.isNumeric(con.getPhone2()) || (con.getPhone2().isEmpty())) {
+				contactsDao.save(con);
+			}
+			
+		}else {
+			JOptionPane.showMessageDialog(null, "numara girmediiinnn");
+		}
+		
+		
+
+		
+	}
+
+	public void delete(long id) {
+		contactsDao.delete(id);
+		
+	}
+
+	public Contacts update(long id, String phone1, String phone2, String adres1, String adres2) {
+		Contacts contacts = contactsDao.findById(id);
+		contacts.setPhone1(phone1);
+		contacts.setPhone1(phone2);
+		contacts.setAddress1(adres1);
+		contacts.setAddress1(adres2);
+		contactsDao.update(id, contacts);
+		return contacts;
+		
+	}
+
+}

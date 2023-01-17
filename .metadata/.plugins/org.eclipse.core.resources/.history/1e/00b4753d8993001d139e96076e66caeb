@@ -1,0 +1,17 @@
+package com.busecnky.entity;
+
+public class Customer extends User {
+
+	private long id;
+	
+	private String password;
+	
+	private String identity;
+
+
+
+
+	
+	
+	
+}

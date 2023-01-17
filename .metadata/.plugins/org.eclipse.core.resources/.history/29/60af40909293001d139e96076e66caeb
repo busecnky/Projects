@@ -1,0 +1,14 @@
+package com.busecnky;
+
+import com.busecnky.utils.HibernateUtils;
+
+public class Test {
+
+	public static void main(String[] args) {
+		
+		HibernateUtils.getSessionFactory().openSession();
+		
+
+	}
+
+}

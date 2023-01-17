@@ -1,0 +1,95 @@
+package com.busecnky.entity;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Customer extends User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	private String password;
+	
+	private String identity;
+
+	@ManyToOne(cascade = CascadeType.MERGE)
+	private Product product;
+	
+	@OneToMany(mappedBy = "customer")
+	private List<ProductEvaluate> productEvaluates;
+
+	public Customer(String firstName, String lastName, String email, String password, String identity,
+			Product product) {
+		super(firstName, lastName, email);
+		this.password = password;
+		this.identity = identity;
+		this.product = product;
+	}
+
+	public Customer() {
+		super();
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getIdentity() {
+		return identity;
+	}
+
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public List<ProductEvaluate> getProductEvaluates() {
+		return productEvaluates;
+	}
+
+	public void setProductEvaluates(List<ProductEvaluate> productEvaluates) {
+		this.productEvaluates = productEvaluates;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", password=" + password + ", identity=" + identity + ", product=" + product
+				+ ", productEvaluates=" + productEvaluates.size() + ", getFirstName()=" + getFirstName() + ", getLastName()="
+				+ getLastName() + ", getEmail()=" + getEmail() + "]";
+	}
+
+
+
+
+	
+	
+	
+}

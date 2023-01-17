@@ -1,0 +1,110 @@
+package com.busecnky;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.awt.event.ActionEvent;
+
+public class Client {
+
+	private JFrame frmUdpClient;
+	private JTextField textField;
+	private JButton btnNewButtonCarp;
+	private JEditorPane editorPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UDPClient window = new UDPClient();
+					window.frmUdpClient.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Client() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmUdpClient = new JFrame();
+		frmUdpClient.setTitle("UDP Client");
+		frmUdpClient.setBounds(100, 100, 527, 519);
+		frmUdpClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUdpClient.getContentPane().setLayout(null);
+
+		textField = new JTextField();
+		textField.setBounds(365, 342, 157, 20);
+		frmUdpClient.getContentPane().add(textField);
+		textField.setColumns(10);
+
+		JButton btnNewButton = new JButton("Send Message");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sendMessage(5000);  // Toplama için server portu 5000
+
+			}
+		});
+		btnNewButton.setBounds(375, 383, 144, 23);
+		frmUdpClient.getContentPane().add(btnNewButton);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(83, 70, 264, 346);
+		frmUdpClient.getContentPane().add(scrollPane);
+		
+		editorPane = new JEditorPane();
+		scrollPane.setViewportView(editorPane);
+	}
+
+	public void sendMessage(int port) {
+		try {
+			InetAddress address = InetAddress.getLocalHost();
+			DatagramSocket datagramSocket = new DatagramSocket();
+			String echoString;
+
+			echoString = textField.getText();
+			byte[] buffer = echoString.getBytes();
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, port);
+			datagramSocket.send(packet);
+
+			// Server tarafından gelen echo mesajını alıp görüntüleyelim..
+			byte[] buffer2 = new byte[50];
+			packet = new DatagramPacket(buffer2, buffer2.length);
+			datagramSocket.receive(packet);
+			String receivedText = new String(buffer2, 0, packet.getLength());
+			//System.out.println("Text received is : " + receivedText);
+			editorPane.setText(editorPane.getText() + "\n" + receivedText);
+
+		} catch (UnknownHostException e2) {
+			e2.printStackTrace();
+		} catch (SocketException e2) {
+			e2.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+	}
+}

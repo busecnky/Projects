@@ -1,0 +1,20 @@
+package com.busecnky.controller;
+
+import com.busecnky.entity.Category;
+import com.busecnky.entity.Product;
+import com.busecnky.utils.BAUtils;
+
+public class ProductController {
+
+	public void create() {
+		
+		String name = BAUtils.readString("Please enter category name: ");
+		double price = BAUtils.readDouble("Please enter the product price: ");
+		int stock = BAUtils.readString("Please enter category name: ");
+		Category category = 
+		
+		Product product = new Product(name, 0, 0, null)
+		
+	}
+
+}

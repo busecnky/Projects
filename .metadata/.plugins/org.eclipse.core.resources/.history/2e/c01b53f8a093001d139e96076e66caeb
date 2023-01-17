@@ -1,0 +1,14 @@
+package com.busecnky.controller;
+
+import java.util.Optional;
+
+import com.busecnky.entity.Customer;
+
+public class CustomerController {
+
+	public Optional<Customer> findByUserName(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
